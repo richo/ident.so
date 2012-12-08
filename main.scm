@@ -1,9 +1,11 @@
 #!/usr/bin/env csi -ss
 
+(use srfi-13)
 (use srfi-18)
 (use tcp)
 ; (require-extension intarweb)
 (require "lib/response")
+(require "lib/request")
 
 
 (define ident-so-port
@@ -17,12 +19,23 @@
 
 (define handle
   (lambda (in out)
-      (display "HTTP/1.0 200 OK\r\n" out)
-      (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
-      (display "<html><body>Hello, world!</body></html>" out)
-
+    ; We're lazy- we can find out everything about the request that we care
+    ; about from it's first line
+    (let* ((line (read-line in))
+           (request-path (get-request-path line))
+           (request-method (get-request-method line)))
+      (cond ((string=? request-path "/")
+               (display "HTTP/1.0 200 OK\r\n" out)
+               (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
+               (display "<html><body>Hello, world!</body></html>" out))
+            ((string=? request-path "/rawr")
+               (display "HTTP/1.0 200 OK\r\n" out)
+               (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
+               (display "<html><body>rawr</body></html>" out))
+            )
       (close-input-port in)
       (close-output-port out)
+      )
   ))
 
 
