@@ -1,0 +1,2 @@
+((description "An ID service for developers")
+ (chicken 4.8.0))
