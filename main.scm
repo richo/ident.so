@@ -21,18 +21,21 @@
   (lambda (in out)
     ; We're lazy- we can find out everything about the request that we care
     ; about from it's first line
-    (let* ((line (read-line in))
-           (request-path (get-request-path line))
-           (request-method (get-request-method line))
-           (response (make-response)))
+    (let* (
+           ; (line (read-line in))
+           ; (request-path (get-request-path line))
+           ; (request-method (get-request-method line))
+           (response (make-response))
+           )
       (write-response
-        (cond ((string=? request-path "/")
+        ; (cond ((string=? request-path "/")
              (set-response-header "Content-Type" "text/html"
-               (set-response-body "<html><body><b>Got root?</b></body></html>" response)))
-            ((string=? request-path "/rawr")
-             (set-response-body "got rawr?" response))
-            (else
-             (set-response-body "No such page mang" response))
+               (set-response-body "<html><body><b>Got root?</b></body></html>" response)
+            ; )
+            ; ((string=? request-path "/rawr")
+            ;  (set-response-body "got rawr?" response))
+            ; (else
+            ;  (set-response-body "No such page mang" response))
             ) out)
       (close-input-port in)
       (close-output-port out)
