@@ -43,14 +43,13 @@
 
 (define main
   (lambda (argv)
-    (let ((sock (tcp-listen (string->number (get-environment-variable "PORT")))))
-      (define mainloop
-        (lambda ()
-          (let-values (((s-in s-out) (tcp-accept sock)))
-            (if threaded?
-              (thread-start! (make-thread (lambda () (handle s-in s-out))))
-              (handle s-in s-out)
-              )
-            (mainloop)
-            )))
+    (letrec ((sock (tcp-listen (string->number (get-environment-variable "PORT"))))
+      (mainloop (lambda ()
+        (let-values (((s-in s-out) (tcp-accept sock)))
+          (if threaded?
+            (thread-start! (make-thread (lambda () (handle s-in s-out))))
+            (handle s-in s-out)
+            )
+          (mainloop)
+          ))))
       (mainloop))))
