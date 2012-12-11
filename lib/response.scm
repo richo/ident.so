@@ -1,16 +1,18 @@
 (define nl "\r\n")
 (define write-response
-  (lambda (response port)
-    (let ((status-code (number->string (cadr (assoc 'status response))))
-          (status-name (cdr (lookup-status-code (cadr (assoc 'status response))))))
+  (lambda (resp port)
+    (let* ((status-code (number->string (cadr (assoc 'status resp))))
+          (status-name (cdr (lookup-status-code (cadr (assoc 'status resp)))))
+          (body        (cdr (assoc 'body resp)))
+          (response    (set-response-header "Content-Length" (number->string (string-length body)) resp)))
     (display (string-append "HTTP/1.0 " status-code " " status-name nl) port)
     (for-each (lambda (el)
-                (cond ((string? el)
+                (cond ((string? (car el))
                          (let ((header (car el)) (value (cdr el)))
                            (display (string-append header ": " value nl) port)))))
               response)
     (display nl port)
-    (display (cdr (assoc 'body response)) port))))
+    (display body port))))
 
 (define make-response
   (lambda ()
@@ -25,6 +27,7 @@
 
 (define set-response-header
   (lambda (header value response)
+    ; TODO Potentially stringify headers here?
     (alist-update header value response)))
 
 (define lookup-status-code ; TODO Rename saner
