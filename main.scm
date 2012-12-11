@@ -17,7 +17,7 @@
       #f
       ))
 
-(define handle
+(define real-handle
   (lambda (in out)
     ; We're lazy- we can find out everything about the request that we care
     ; about from it's first line
@@ -40,17 +40,17 @@
       )
   ))
 
-
+(define handle
+  (if threaded?
+    real-handle
+    (lambda (in out) (thread-start! (make-thread (lambda () (real-handle in out)))))))
 
 (define main
   (lambda (argv)
     (letrec ((sock (tcp-listen (string->number (get-environment-variable "PORT"))))
       (mainloop (lambda ()
         (let-values (((s-in s-out) (tcp-accept sock)))
-          (if threaded?
-            (thread-start! (make-thread (lambda () (handle s-in s-out))))
-            (handle s-in s-out)
-            )
+          (handle s-in s-out)
           (mainloop)
           ))))
       (mainloop))))
