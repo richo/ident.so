@@ -21,8 +21,9 @@
   (lambda (in out)
     ; We're lazy- we can find out everything about the request that we care
     ; about from it's first line
-    (let* ((line (read-line in))
-           (request-path (get-request-path line))
+    (let ((line (read-line in)))
+      (if (not (equal? line #!eof))
+        (let ((request-path (get-request-path line))
            (request-method (get-request-method line))
            (response (make-response)))
       (write-response
@@ -33,7 +34,7 @@
              (set-response-body "got rawr?" response))
             (else
              (set-response-body "No such page mang" response))
-            ) out)
+            ) out)))
       (close-input-port in)
       (close-output-port out)
       )
