@@ -9,8 +9,9 @@
     ;                      (let ((header (car el)) (value (cdr el)))
     ;                        (display (string-append header ": " value nl) port)))))
     ;           response)
-    (display nl port)
-    (display (cdr (assoc 'body response)) port))))
+    ; (display nl port)
+    ; (display (cdr (assoc 'body response)) port))))
+    )))
 
 (define make-response
   (lambda ()
