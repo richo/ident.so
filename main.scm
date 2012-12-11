@@ -32,6 +32,10 @@
                (display "HTTP/1.0 200 OK\r\n" out)
                (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
                (display "<html><body>rawr</body></html>" out))
+            (else
+               (display "HTTP/1.0 200 OK\r\n" out)
+               (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
+               (display "<html><body>Trolololol</body></html>" out))
             )
       (close-input-port in)
       (close-output-port out)
