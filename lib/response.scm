@@ -4,11 +4,11 @@
     (let ((status-code (number->string (cadr (assoc 'status response))))
           (status-name (cdr (lookup-status-code (cadr (assoc 'status response))))))
     (display (string-append "HTTP/1.0 " status-code " " status-name nl) port)
-    ; (for-each (lambda (el)
-    ;             (cond ((string? el)
-    ;                      (let ((header (car el)) (value (cdr el)))
-    ;                        (display (string-append header ": " value nl) port)))))
-    ;           response)
+    (for-each (lambda (el)
+                (cond ((string? el)
+                         (let ((header (car el)) (value (cdr el)))
+                           (display (string-append header ": " value nl) port)))))
+              response)
     (display nl port)
     (display (cdr (assoc 'body response)) port))))
 
@@ -22,6 +22,10 @@
 (define set-response-body
   (lambda (body response)
     (alist-update 'body body response)))
+
+(define set-response-header
+  (lambda (header value response)
+    (alist-update header value response)))
 
 (define lookup-status-code ; TODO Rename saner
   (lambda (code)

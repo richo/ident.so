@@ -27,7 +27,8 @@
            (response (make-response)))
       (write-response
         (cond ((string=? request-path "/")
-             (set-response-body "got root?" response))
+             (set-response-header "Content-Type" "text/html"
+               (set-response-body "<html><body><b>Got root?</b></body></html>" response)))
             ((string=? request-path "/rawr")
              (set-response-body "got rawr?" response))
             (else
