@@ -6,6 +6,7 @@
 ; (require-extension intarweb)
 (require "lib/response")
 (require "lib/request")
+(require "lib/user")
 
 
 (define ident-so-port
@@ -33,7 +34,7 @@
             ((string=? request-path "/rawr")
              (set-response-body "got rawr?" response))
             (else
-             (set-response-body "No such page mang" response))
+             (get-user-page (user-from-path request-path) response))
             )
         out)))
       (close-input-port in)
