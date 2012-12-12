@@ -8,5 +8,5 @@
   (lambda (line)
     (let ((tokenized-line (string-tokenize line)))
       ; TODO strip query strings
-      (car (cdr tokenized-line)))))
+      (cadr tokenized-line))))
 
