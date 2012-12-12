@@ -18,8 +18,7 @@
   (lambda ()
     ; Note to self. This object is immutable. Subseqent calls to set-foo return a mutated but new object.
     '((status 200)
-      (body "")
-      )))
+      (body ""))))
 
 (define set-response-body
   (lambda (body response)

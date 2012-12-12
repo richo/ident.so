@@ -29,16 +29,15 @@
       (write-response
         (cond ((string=? request-path "/")
              (set-response-header "Content-Type" "text/html"
-               (set-response-body "<html><body><b>Got root?</b></body></html>" response)))
+             (set-response-body "<html><body><b>Got root?</b></body></html>" response)))
             ((string=? request-path "/rawr")
              (set-response-body "got rawr?" response))
             (else
              (set-response-body "No such page mang" response))
-            ) out)))
+            )
+        out)))
       (close-input-port in)
-      (close-output-port out)
-      )
-  ))
+      (close-output-port out))))
 
 (define handle
   (if threaded?
