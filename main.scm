@@ -23,9 +23,9 @@
     ; about from it's first line
     (let ((line (read-line in)))
       (if (not (equal? line #!eof))
-        (let ((request-path (get-request-path line))
-           (request-method (get-request-method line))
-           (response (make-response)))
+        (let* ((request (make-request line))
+               (response (make-response))
+               (request-path (get-request-path request)))
       (write-response
         (cond ((string=? request-path "/")
              (set-response-header "Content-Type" "text/html"
