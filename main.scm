@@ -3,6 +3,8 @@
 (use srfi-13)
 (use srfi-18)
 (use tcp)
+(use posix)
+(use utils)
 ; (require-extension intarweb)
 (require "lib/response")
 (require "lib/request")
