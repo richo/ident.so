@@ -15,10 +15,7 @@
   (get-environment-variable "PORT"))
 
 (define threaded?
-  (if (get-environment-variable "IDENT_THREADED")
-      #t
-      #f
-      ))
+  (if (get-environment-variable "IDENT_THREADED") #t #f))
 
 (define real-handle
   (lambda (in out)
