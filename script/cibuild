@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -x
+
+chicken-install -x test redis-client
+
+csi -s test.scm
