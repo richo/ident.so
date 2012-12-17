@@ -11,7 +11,10 @@
   (lambda (alst)
     (string-append "{"
       (string-intersperse (map (lambda (pair)
-                                 (string-intersperse (list (elem->jsonobj (car pair)) (elem->jsonobj (cadr pair))) ":")
+                                 (string-intersperse (list
+                                                       (elem->jsonobj (car pair))
+                                                       (elem->jsonobj (if (list? (cdr pair)) (cadr pair) (cdr pair))))
+                                                     ":")
                                  ) alst) ",") "}" )))
 
 
