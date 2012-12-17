@@ -1,2 +1,3 @@
 ((description "An ID service for developers")
- (chicken 4.8.0))
+ (chicken 4.8.0)
+ (depends redis-client))
