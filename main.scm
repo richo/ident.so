@@ -13,7 +13,7 @@
 ; Fetch our datastore
 (cond ((get-environment-variable "IDENTSO_DATASTORE")
         (require (string-append "datastore/" (get-environment-variable "IDENTSO_DATASTORE"))))
-      ((get-environment-variable "REDISCLOUD_URL")
+      ((or (get-environment-variable "REDISCLOUD_URL") (get-environment-variable "REDIS_URL"))
         (require "datastore/redis"))
       (else (require "datastore/file")))
 
