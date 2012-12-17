@@ -7,6 +7,8 @@
 (use utils)
 ; (require-extension intarweb)
 
+(require "lib/util")
+
 ; Fetch our datastore
 (cond ((get-environment-variable "IDENTSO_DATASTORE")
         (require (string-append "datastore/" (get-environment-variable "IDENTSO_DATASTORE"))))
