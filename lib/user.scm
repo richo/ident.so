@@ -18,9 +18,3 @@
 
 
 ; TODO Obviously this isn't done.
-(define get-user-by-name
-  (lambda (name)
-    (let ((u (assoc name user-mapping)))
-      (if u
-        (cadr u)
-        #f))))
