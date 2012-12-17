@@ -6,6 +6,14 @@
 (use posix)
 (use utils)
 ; (require-extension intarweb)
+
+; Fetch our datastore
+(cond ((get-environment-variable "IDENTSO_DATASTORE")
+        (require (string-append "datastore/" (get-environment-variable "IDENTSO_DATASTORE"))))
+      ((get-environment-variable "REDISCLOUD_URL")
+        (require "datastore/redis"))
+      (else (require "datastore/file")))
+
 (require "lib/response")
 (require "lib/request")
 (require "lib/user")
