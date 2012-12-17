@@ -8,6 +8,7 @@
 ; (require-extension intarweb)
 
 (require "lib/util")
+(require "lib/json")
 
 ; Fetch our datastore
 (cond ((get-environment-variable "IDENTSO_DATASTORE")
