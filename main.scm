@@ -7,7 +7,6 @@
 (use utils)
 ; (require-extension intarweb)
 
-(require "lib/util")
 (require "lib/json")
 
 ; Fetch our datastore

@@ -27,5 +27,4 @@
     (let ((user-data (redis-hgetall (string-append "user:" name))))
       (if (= 0 (length user-data))
         #f
-        (alist->json (list->alist user-data))))))
-
+        (alist->json (chop user-data) 2)))))
