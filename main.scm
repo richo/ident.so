@@ -60,6 +60,5 @@
       (mainloop (lambda ()
         (let-values (((s-in s-out) (tcp-accept sock)))
           (handle s-in s-out)
-          (mainloop)
-          ))))
+          (mainloop)))))
       (mainloop))))
